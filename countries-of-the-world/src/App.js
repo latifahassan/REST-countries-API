@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
@@ -17,6 +17,7 @@ export default function App() {
   const [mode, setMode] = useState('light');
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedRegion, setSelectedRegion] = useState('');
+  const location = useLocation();
 
   const lightTheme = createTheme({
     palette: {
@@ -64,21 +65,26 @@ export default function App() {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <div style={{ margin: '36px' }}>
-        <Filter
-          selectedRegion={selectedRegion}
-          handleRegionChange={handleRegionChange}
-        />
-      </div>
+
         <Routes>
           <Route
             path="/"
             element={
-              <CountryList
-                selectedCountry={selectedCountry}
-                handleCountrySelect={handleCountrySelect}
-                selectedRegion={selectedRegion}
-              />
+              <>
+                {location.pathname !== '/:name' && (
+                  <div style={{ margin: '36px' }}>
+                    <Filter
+                      selectedRegion={selectedRegion}
+                      handleRegionChange={handleRegionChange}
+                    />
+                  </div>
+                )}
+                <CountryList
+                  selectedCountry={selectedCountry}
+                  handleCountrySelect={handleCountrySelect}
+                  selectedRegion={selectedRegion}
+                />
+              </>
             }
           />
           <Route
@@ -90,3 +96,4 @@ export default function App() {
     </ThemeProvider>
   );
 }
+
