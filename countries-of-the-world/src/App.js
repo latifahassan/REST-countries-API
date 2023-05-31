@@ -11,12 +11,12 @@ import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 
 import CountryDetails from './CountryDetails';
 import CountryList from './CountryList';
-
+import Filter from './Filter';
 
 export default function App() {
   const [mode, setMode] = useState('light');
   const [selectedCountry, setSelectedCountry] = useState(null);
- 
+  const [selectedRegion, setSelectedRegion] = useState('');
 
   const lightTheme = createTheme({
     palette: {
@@ -45,7 +45,11 @@ export default function App() {
     setSelectedCountry(country);
   };
 
-return (
+  const handleRegionChange = (event) => {
+    setSelectedRegion(event.target.value);
+  };
+
+  return (
     <ThemeProvider theme={mode === 'light' ? lightTheme : darkTheme}>
       <CssBaseline />
       <div className="App">
@@ -54,18 +58,33 @@ return (
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Where in the World?
             </Typography>
-            
+
             <IconButton color="inherit" onClick={toggleMode}>
               {mode === 'light' ? <DarkModeOutlinedIcon /> : <DarkModeIcon />}
             </IconButton>
           </Toolbar>
         </AppBar>
+        <div style={{ margin: '36px' }}>
+        <Filter
+          selectedRegion={selectedRegion}
+          handleRegionChange={handleRegionChange}
+        />
+      </div>
         <Routes>
           <Route
             path="/"
-            element={<CountryList selectedCountry={selectedCountry} handleCountrySelect={handleCountrySelect} />}
+            element={
+              <CountryList
+                selectedCountry={selectedCountry}
+                handleCountrySelect={handleCountrySelect}
+                selectedRegion={selectedRegion}
+              />
+            }
           />
-          <Route path="/:name" element={<CountryDetails selectedCountry={selectedCountry} />} />
+          <Route
+            path="/:name"
+            element={<CountryDetails selectedCountry={selectedCountry} />}
+          />
         </Routes>
       </div>
     </ThemeProvider>
