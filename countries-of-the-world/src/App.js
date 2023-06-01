@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
-
+import Search from './Search'
 import CountryDetails from './CountryDetails';
 import CountryList from './CountryList';
 import Filter from './Filter';
@@ -67,26 +67,28 @@ export default function App() {
         </AppBar>
 
         <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                {location.pathname !== '/:name' && (
-                  <div style={{ margin: '36px' }}>
-                    <Filter
-                      selectedRegion={selectedRegion}
-                      handleRegionChange={handleRegionChange}
-                    />
-                  </div>
-                )}
-                <CountryList
-                  selectedCountry={selectedCountry}
-                  handleCountrySelect={handleCountrySelect}
-                  selectedRegion={selectedRegion}
-                />
-              </>
-            }
+        <Route
+  path="/"
+  element={
+    <>
+      {location.pathname !== '/:name' && (
+        <div style={{ margin: '36px ', display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
+          <Search />
+          <Filter
+            selectedRegion={selectedRegion}
+            handleRegionChange={handleRegionChange}
           />
+        </div>
+      )}
+      <CountryList
+        selectedCountry={selectedCountry}
+        handleCountrySelect={handleCountrySelect}
+        selectedRegion={selectedRegion}
+      />
+    </>
+  }
+/>
+
           <Route
             path="/:name"
             element={<CountryDetails selectedCountry={selectedCountry} />}
