@@ -8,3 +8,5 @@ export const API_URL_REGION = (region) =>
 
 export const API_URL_CODE = (borders) =>
   `https://restcountries.com/v3.1/alpha?codes=${borders.join(',')}`;
+
+  //works well
