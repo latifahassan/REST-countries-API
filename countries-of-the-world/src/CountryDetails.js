@@ -73,6 +73,18 @@ const BorderButtonContainer = styled('div')({
   justifyContent: 'center',
 });
 
+const BackButton = styled(Button)(({ theme }) => ({
+  position: 'absolute',
+  top: '6rem',
+  left: '1rem',
+  padding: `${theme.spacing(1)}px ${theme.spacing(4)}px`,
+  color: theme.palette.text.primary,
+  backgroundColor: theme.palette.background.paper,
+  borderRadius: '5px',
+  fontSize: '1rem',
+  textTransform: 'none',
+}));
+
 function CountryDetails() {
   const { name } = useParams();
   const navigate = useNavigate();
@@ -116,8 +128,17 @@ function CountryDetails() {
     navigate(`/${border.name.common}`);
   };
 
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
   return (
+
     <Container>
+      <BackButton variant="contained" onClick={handleGoBack}>
+        Back
+      </BackButton>
+
       {countryData && (
         <>
           <FlagImage src={countryData.flags.svg} alt={`${name} flag`} />
