@@ -28,7 +28,7 @@ git clone https://github.com/your-username/where-in-the-world.git
 ```
 Navigate to the project directory.
 ```
-cd
+cd countries-of-the-world
 ```
 Install the dependencies using your preferred package manager.
 ```
